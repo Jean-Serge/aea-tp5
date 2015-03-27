@@ -3,11 +3,16 @@ package entite;
 /**
  * Cette classe représente un Sommet pour le graphe.
  * @author monbailly
+ * @author verbaere
  *
  */
 public class Sommet {
 
 	private int id;
+	
+	private int couleur;
+	
+	private int degre;
 	
 	// 	========================================================================================= 
 	//	Constructeurs
@@ -19,7 +24,33 @@ public class Sommet {
 	 */
 	public Sommet(int id) {
 		this.id = id;
+		this.couleur = 0; // 0 : non coloré
+		this.degre = 0; // de base un sommet n'est pas relié à un autre sommet.
 	}
+	
+
+	/**
+	 * Permet de colorer un sommet avec une couleur (modélisée sous forme d'entier).
+	 * @param color l'indice de la couleur
+	 */
+	public void colorerSommet(int color) {
+		this.couleur = color;
+	}
+	
+	/**
+	 * Incrémente le degré du sommet.
+	 */
+	public void incrementerDegre() {
+		this.degre++;
+	}
+	
+	/**
+	 * Décrémente le degré du sommet.
+	 */
+	public void decrementerDegre() {
+		this.degre--;
+	}
+	
 	
 	// 	========================================================================================= 
 	//	Fonctions utiles
