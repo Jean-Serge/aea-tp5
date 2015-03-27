@@ -1,5 +1,7 @@
 package entite;
 
+import java.util.List;
+
 public class Graphe extends AbstractGraphe {
 
 	// 	========================================================================================= 
@@ -10,5 +12,8 @@ public class Graphe extends AbstractGraphe {
 		super();
 	}
 	
+	public Graphe(List<Arete> aretes){
+		super(aretes);
+	}
 
 }
