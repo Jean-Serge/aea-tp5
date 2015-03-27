@@ -91,6 +91,14 @@ public class Sommet {
 		this.voisins.add(s);
 	}
 	
+	/**
+	 * Retourne le degré du sommet.
+	 * @return le degré
+	 */
+	public int getDegre() {
+		return this.degre;
+	}
+	
 	
 
 }
