@@ -99,6 +99,14 @@ public class Sommet {
 		return this.degre;
 	}
 	
+	/**
+	 * Retourne la couleur du sommet.
+	 * @return l'indice de la couleur
+	 */
+	public int getCouleur() {
+		return this.couleur;
+	}
+	
 	
 
 }
