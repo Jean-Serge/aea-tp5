@@ -32,7 +32,11 @@ public class Arete {
 		
 		// Le degré de chaque sommet doit être incrémenté.
 		origine.incrementerDegre();
-		origine.incrementerDegre();
+		arrivee.incrementerDegre();
+		
+		// On ajoute les voisins des sommets
+		origine.ajouterVoisin(arrivee);
+		arrivee.ajouterVoisin(origine);
 	}
 	
 	/**
@@ -49,7 +53,11 @@ public class Arete {
 		
 		// Le degré de chaque sommet doit être incrémenté.
 		origine.incrementerDegre();
-		origine.incrementerDegre();
+		arrivee.incrementerDegre();
+		
+		// On ajoute les voisins des sommets
+		origine.ajouterVoisin(arrivee);
+		arrivee.ajouterVoisin(origine);
 	}
 
 	// 	========================================================================================= 
