@@ -29,6 +29,10 @@ public class Arete {
 	 */
 	public Arete(Sommet origine, Sommet arrivee){
 		this(origine, arrivee, 1);
+		
+		// Le degré de chaque sommet doit être incrémenté.
+		origine.incrementerDegre();
+		origine.incrementerDegre();
 	}
 	
 	/**
@@ -42,6 +46,10 @@ public class Arete {
 		this.origine = origine;
 		this.arrivee = arrivee;
 		this.valeur = valeur;
+		
+		// Le degré de chaque sommet doit être incrémenté.
+		origine.incrementerDegre();
+		origine.incrementerDegre();
 	}
 
 	// 	========================================================================================= 
