@@ -38,14 +38,15 @@ public class WelshPowel {
 		Collections.sort(sommets,new DegreSommetComparator());
 
 		for (Sommet s: sommets) {
-			
+
 			if (s.getCouleur() == 0) {
 				
 				for (Sommet s1 : sommets) {
-					if (!s1.getVoisins().contains(s))
+					if (!s1.getVoisins().contains(s)) {
 						s1.colorerSommet(this.nb_couleur+1);
+					}
 				}
-				
+				this.nb_couleur++;
 			}
 		}
 			
