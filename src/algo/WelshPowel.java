@@ -4,28 +4,27 @@ import java.util.Collections;
 import java.util.List;
 
 import utils.DegreSommetComparator;
-
 import entite.Graphe;
 import entite.Sommet;
 
 /**
  * Classe modélisant la coloration selon l'algorithme de Welsh-Powel.
- * @author verbaere
+ * @author Thibaud VERBAERE
  *
  */
 public class WelshPowel {
-	
-	private Graphe graphe;
-	
+		
 	private int nb_couleur;
+	
+	private List<Sommet> liste_sommets;
 
 	/**
 	 * Créé une nouvelle instance pour une colorisation selon Welsh-Powel d'un graphe.
 	 * @param graphe le graphe à colorer.
 	 */
 	public WelshPowel(Graphe graphe) {
-		this.graphe = graphe;
 		this.nb_couleur = 0;
+		this.liste_sommets = graphe.getSommets();
 	}
 	
 	/**
@@ -33,23 +32,31 @@ public class WelshPowel {
 	 * @return le nombre de couleur utilisé durant l'algorithme
 	 */
 	public int execute() {
-		List<Sommet> sommets = graphe.getSommets();
+		// Reinitialisation de la variable (en cas de réutilisation).
+		this.nb_couleur = 0;
 		// on tri la liste des sommets
-		Collections.sort(sommets,new DegreSommetComparator());
+		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
-		for (Sommet s: sommets) {
-
+		// On prend les sommets dans l'ordre décroissant.
+		for (Sommet s: this.liste_sommets) {
+			// Si une couleur n'est pas attribuée (numéro couleur = 0), on continue si on passe au suivant.
 			if (s.getCouleur() == 0) {
-				
-				for (Sommet s1 : sommets) {
-					if (!s1.getVoisins().contains(s)) {
-						s1.colorerSommet(this.nb_couleur+1);
+				this.nb_couleur++;
+				// On met la plus petite couleur
+				s.colorerSommet(this.nb_couleur);
+				// On parcours les autres sommets pour attribuer la couleur ailleurs
+				for (Sommet s2 : this.liste_sommets) {
+					// On passe les sommets ayant déja été colorés
+					if (s2.getCouleur() == 0) {
+						if (!s2.aUnVoisinColoreAvec(this.nb_couleur)) {
+							// On peut mettre la couleur si on ne trouve pas de voisin avec cette couleur.
+							s2.colorerSommet(this.nb_couleur);
+						}
 					}
 				}
-				this.nb_couleur++;
 			}
 		}
-			
+		
 		return this.nb_couleur;
 	}
 	

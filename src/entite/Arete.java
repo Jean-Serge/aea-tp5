@@ -29,14 +29,6 @@ public class Arete {
 	 */
 	public Arete(Sommet origine, Sommet arrivee){
 		this(origine, arrivee, 1);
-		
-		// Le degré de chaque sommet doit être incrémenté.
-		origine.incrementerDegre();
-		arrivee.incrementerDegre();
-		
-		// On ajoute les voisins des sommets
-		origine.ajouterVoisin(arrivee);
-		arrivee.ajouterVoisin(origine);
 	}
 	
 	/**

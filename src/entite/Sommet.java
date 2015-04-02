@@ -107,6 +107,33 @@ public class Sommet {
 		return this.couleur;
 	}
 	
-	
+	/**
+	 * Retourne le nombre de voisins colorés.
+	 * @return dsat, soit le nombre de voisins colorés.
+	 */
+	public int DSAT() {
+		int dsat = 0;
+		for (Sommet s : this.voisins) {
+			// Pour tout sommet voisin on regarde la couleur, si c'est 0 alors on incrémente.
+			if (s.getCouleur() == 0)
+				dsat++;
+		}
+		
+		return dsat;
+	}
+
+	/**
+	 * Teste si le sommet a un voisin coloré avec une couleur passée en paramètre.
+	 * @param couleurCode le code de la couleur
+	 * @return True|False
+	 */
+	public boolean aUnVoisinColoreAvec(int couleurCode) {
+		for (Sommet s : this.voisins) {
+			// Des qu'on trouve la couleur on renvoie 'true'.
+			if (s.couleur == couleurCode)
+				return true;
+		}
+		return false;
+	}
 
 }
