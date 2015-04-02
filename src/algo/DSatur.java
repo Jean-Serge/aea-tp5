@@ -33,14 +33,18 @@ public class DSatur {
 	 */
 	public int execute() {
 		// Reinitialisation de la variable (en cas de réutilisation).
-		this.nb_couleur = 0;
+		this.nb_couleur = 1;
 		// on tri la liste des sommets
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
-		// On prend les sommets dans l'ordre décroissant.
-		for (Sommet s: this.liste_sommets) {
-
-		}
+		// On colore le premier sommet avec 1 :
+		this.liste_sommets.get(0).colorerSommet(this.nb_couleur);
+		
+		//TODO :
+		// Choisir un sommet avec DSAT max (si = on prend selon le degré)
+		// On colore le sommet avec la plus petite couleur
+		
+		
 		
 		return this.nb_couleur;
 	}
