@@ -79,16 +79,16 @@ public class TestDSatur {
 		DSatur ds = new DSatur(g);
 		ds.execute();
 		// s0, s3 et s7 doivent être de la même couleur :
-		assertEquals(s0.getCouleur(),s3.getCouleur());
-		assertEquals(s0.getCouleur(),s7.getCouleur());
+		assertEquals(ds.getAffectations().get(s0),ds.getAffectations().get(s3));
+		assertEquals(ds.getAffectations().get(s0),ds.getAffectations().get(s7));
 		
 		// s1, s4 et s6 doivent être de la même couleur :
-		assertEquals(s1.getCouleur(),s4.getCouleur());
-		assertEquals(s1.getCouleur(),s6.getCouleur());
+		assertEquals(ds.getAffectations().get(s1),ds.getAffectations().get(s4));
+		assertEquals(ds.getAffectations().get(s1),ds.getAffectations().get(s6));
 		
 		// s2, s8 et s5 doivent être de la même couleur :
-		assertEquals(s2.getCouleur(),s8.getCouleur());
-		assertEquals(s2.getCouleur(),s5.getCouleur());
+		assertEquals(ds.getAffectations().get(s2),ds.getAffectations().get(s8));
+		assertEquals(ds.getAffectations().get(s2),ds.getAffectations().get(s5));
 	}
 	
 }
