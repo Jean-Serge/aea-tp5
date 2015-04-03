@@ -13,8 +13,6 @@ public class Sommet {
 
 	private int id;
 	
-	private int couleur;
-	
 	private int degre;
 	
 	private List<Sommet> voisins;
@@ -29,7 +27,6 @@ public class Sommet {
 	 */
 	public Sommet(int id) {
 		this.id = id;
-		this.couleur = 0; // 0 : non coloré
 		this.degre = 0; // de base un sommet n'est pas relié à un autre sommet.
 		this.voisins = new ArrayList<Sommet>();
 	}
@@ -60,15 +57,7 @@ public class Sommet {
 	public List<Sommet> getVoisins() {
 		return this.voisins;
 	}
-	
-	/**
-	 * Permet de colorer un sommet avec une couleur (modélisée sous forme d'entier).
-	 * @param color l'indice de la couleur
-	 */
-	public void colorerSommet(int color) {
-		this.couleur = color;
-	}
-	
+		
 	/**
 	 * Incrémente le degré du sommet.
 	 */
@@ -97,43 +86,6 @@ public class Sommet {
 	 */
 	public int getDegre() {
 		return this.degre;
-	}
-	
-	/**
-	 * Retourne la couleur du sommet.
-	 * @return l'indice de la couleur
-	 */
-	public int getCouleur() {
-		return this.couleur;
-	}
-	
-	/**
-	 * Retourne le nombre de voisins colorés.
-	 * @return dsat, soit le nombre de voisins colorés.
-	 */
-	public int DSAT() {
-		int dsat = 0;
-		for (Sommet s : this.voisins) {
-			// Pour tout sommet voisin on regarde la couleur, si c'est 0 alors on incrémente.
-			if (s.getCouleur() == 0)
-				dsat++;
-		}
-		
-		return dsat;
-	}
-
-	/**
-	 * Teste si le sommet a un voisin coloré avec une couleur passée en paramètre.
-	 * @param couleurCode le code de la couleur
-	 * @return True|False
-	 */
-	public boolean aUnVoisinColoreAvec(int couleurCode) {
-		for (Sommet s : this.voisins) {
-			// Des qu'on trouve la couleur on renvoie 'true'.
-			if (s.couleur == couleurCode)
-				return true;
-		}
-		return false;
 	}
 
 }

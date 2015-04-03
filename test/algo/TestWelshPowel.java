@@ -79,16 +79,16 @@ public class TestWelshPowel {
 		WelshPowel wp = new WelshPowel(g);
 		wp.execute();
 		// s0, s3 et s7 doivent être de la même couleur :
-		assertEquals(s0.getCouleur(),s3.getCouleur());
-		assertEquals(s0.getCouleur(),s7.getCouleur());
+		assertEquals(wp.getAffectations().get(s0),wp.getAffectations().get(s3));
+		assertEquals(wp.getAffectations().get(s0),wp.getAffectations().get(s7));
 		
 		// s1, s4 et s6 doivent être de la même couleur :
-		assertEquals(s1.getCouleur(),s4.getCouleur());
-		assertEquals(s1.getCouleur(),s6.getCouleur());
+		assertEquals(wp.getAffectations().get(s1),wp.getAffectations().get(s4));
+		assertEquals(wp.getAffectations().get(s1),wp.getAffectations().get(s6));
 		
 		// s2, s8 et s5 doivent être de la même couleur :
-		assertEquals(s2.getCouleur(),s8.getCouleur());
-		assertEquals(s2.getCouleur(),s5.getCouleur());
+		assertEquals(wp.getAffectations().get(s2),wp.getAffectations().get(s8));
+		assertEquals(wp.getAffectations().get(s2),wp.getAffectations().get(s5));
 	}
 	
 }
