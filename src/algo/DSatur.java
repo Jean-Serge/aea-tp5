@@ -1,5 +1,6 @@
 package algo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ public class DSatur {
 	 */
 	public DSatur(Graphe graphe) {
 		this.nb_couleur = 0;
-		this.liste_sommets = graphe.getSommets();
+		this.liste_sommets = new ArrayList<Sommet>(graphe.getSommets());
 		this.affectation_couleur = new HashMap<Sommet,Integer>();
 		
 	}
@@ -43,29 +44,55 @@ public class DSatur {
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
 		// On colore le premier sommet avec 1 :
-		this.affectation_couleur.remove(this.liste_sommets.get(0));
 		this.affectation_couleur.put(this.liste_sommets.get(0), this.nb_couleur);
+		this.liste_sommets.remove(0);
 		
-		// Tant qu'on a trouve un DSAT différent de 0 on fait un tour de boucle
+		// Tant qu'on a pas coloré tout les sommets on execute la boucle
+		Sommet selectionne;
+		int dsat_max;
+		int i;
+		boolean pas_colore;
+		int res;
 		
 		
-		
-		for (Sommet s : this.liste_sommets) {
-			int dsat_max = 0;
-			Sommet selectionne = null;
-			int res = this.DSAT(s);
-			if (res > dsat_max) {
-				dsat_max = res;
-				selectionne = s;
+		while (this.liste_sommets.size() != 0) {
+			selectionne = this.liste_sommets.get(0);
+			dsat_max = this.DSAT(this.liste_sommets.get(0));
+			pas_colore = true;
+			res = 0;
+			
+			// Choisir un sommet avec DSAT max (si = on prend selon le degré)
+			for (Sommet s : this.liste_sommets) {
+				res = this.DSAT(s);
+				if (res > dsat_max) {
+					dsat_max = res;
+					selectionne = s;
+				}
 			}
-		}
-		
-		
-		//TODO :
-		// Choisir un sommet avec DSAT max (si = on prend selon le degré)
-		// On colore le sommet avec la plus petite couleur possible
-		
-		
+
+			// On cherche la plus petite couleur possible pour le sommet selectionne
+			i = 1;
+			while (pas_colore && i <= this.nb_couleur) {
+				if (!this.aUnVoisinColoreAvec(selectionne, i)) {
+
+					this.affectation_couleur.put(selectionne, i);
+					this.liste_sommets.remove(selectionne);
+					pas_colore = false;
+				}
+				i++;
+			}
+			
+			// On colore le sommet
+			if (pas_colore) {
+				
+				this.nb_couleur++;
+				this.affectation_couleur.put(selectionne, this.nb_couleur);
+				this.liste_sommets.remove(selectionne);
+			}
+			else {
+				pas_colore = true;
+			}
+		}		
 		
 		return this.nb_couleur;
 	}
@@ -79,11 +106,25 @@ public class DSatur {
 		int dsat = 0;
 		for (Sommet s : sommet.getVoisins()) {
 			// Pour tout sommet voisin on regarde la couleur, si c'est 0 alors on incrémente.
-			if (this.affectation_couleur.containsKey(s) && this.affectation_couleur.get(s) == 0)
+			if (!this.affectation_couleur.containsKey(s))
 				dsat++;
 		}
 		
 		return dsat;
+	}
+	
+	/**
+	 * Teste si le sommet a un voisin coloré avec une couleur passée en paramètre.
+	 * @param couleurCode le code de la couleur
+	 * @return True|False
+	 */
+	public boolean aUnVoisinColoreAvec(Sommet sommet, int couleurCode) {
+		for (Sommet s : sommet.getVoisins()) {
+			// Des qu'on trouve la couleur on renvoie 'true'.
+			if (this.affectation_couleur.containsKey(s) && this.affectation_couleur.get(s) == couleurCode)
+				return true;
+		}
+		return false;
 	}
 	
 	

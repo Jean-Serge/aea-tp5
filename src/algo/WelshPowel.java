@@ -48,7 +48,6 @@ public class WelshPowel {
 			if (!this.affectation_couleur.containsKey(s)) {
 				this.nb_couleur++;
 				// On met la plus petite couleur
-				this.affectation_couleur.remove(s);
 				this.affectation_couleur.put(s, this.nb_couleur);
 				
 				// On parcours les autres sommets pour attribuer la couleur ailleurs
@@ -57,7 +56,6 @@ public class WelshPowel {
 					if (!this.affectation_couleur.containsKey(s2)) {
 						if (!this.aUnVoisinColoreAvec(s2,this.nb_couleur)) {
 							// On peut mettre la couleur si on ne trouve pas de voisin avec cette couleur.
-							this.affectation_couleur.remove(s2);
 							this.affectation_couleur.put(s2, this.nb_couleur);
 						}
 					}
