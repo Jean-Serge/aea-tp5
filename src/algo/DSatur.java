@@ -3,7 +3,9 @@ package algo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import utils.DegreSommetComparator;
 import entite.Graphe;
@@ -103,14 +105,12 @@ public class DSatur {
 	 * @return dsat, soit le nombre de voisins colorés.
 	 */
 	public int DSAT(Sommet sommet) {
-		int dsat = 0;
+		Set<Integer> couleurs = new HashSet<Integer>();
 		for (Sommet s : sommet.getVoisins()) {
-			// Pour tout sommet voisin on regarde la couleur, si c'est 0 alors on incrémente.
-			if (!this.affectation_couleur.containsKey(s))
-				dsat++;
+			couleurs.add(this.affectation_couleur.get(s));
 		}
 		
-		return dsat;
+		return couleurs.size();
 	}
 	
 	/**

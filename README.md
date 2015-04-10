@@ -21,3 +21,7 @@ On revient à la seconde étape tant que la liste contient des sommets.
 
 DSATUR:
 -------
+Dans un premier temps, il faut ordonner les sommets suivant un ordre décroissant de leur degré.
+On colore le premier sommet de la liste avec la couleur 1 (donc le sommet de degré maximum).
+Puis il faut choisir le sommet non coloré ayant un DSAT maximum.
+Pour rappel, le DSAT d'un sommet et le nom

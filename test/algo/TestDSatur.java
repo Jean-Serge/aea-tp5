@@ -78,17 +78,12 @@ public class TestDSatur {
 	public void TestColoration() {
 		DSatur ds = new DSatur(g);
 		ds.execute();
-		// s0, s3 et s7 doivent être de la même couleur :
-		assertEquals(ds.getAffectations().get(s0),ds.getAffectations().get(s3));
-		assertEquals(ds.getAffectations().get(s0),ds.getAffectations().get(s7));
-		
-		// s1, s4 et s6 doivent être de la même couleur :
-		assertEquals(ds.getAffectations().get(s1),ds.getAffectations().get(s4));
-		assertEquals(ds.getAffectations().get(s1),ds.getAffectations().get(s6));
-		
-		// s2, s8 et s5 doivent être de la même couleur :
-		assertEquals(ds.getAffectations().get(s2),ds.getAffectations().get(s8));
-		assertEquals(ds.getAffectations().get(s2),ds.getAffectations().get(s5));
+		// Pour chaque sommet on vérifie qu'il n'y a pas de voisin de même couleur que lui.
+		for (Sommet s : g.getSommets()) {
+			for (Sommet vs : s.getVoisins()) {
+				assertFalse(ds.getAffectations().get(s) == ds.getAffectations().get(vs));
+			}
+		}
 	}
 	
 }

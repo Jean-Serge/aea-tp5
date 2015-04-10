@@ -78,17 +78,12 @@ public class TestWelshPowel {
 	public void TestColoration() {
 		WelshPowel wp = new WelshPowel(g);
 		wp.execute();
-		// s0, s3 et s7 doivent être de la même couleur :
-		assertEquals(wp.getAffectations().get(s0),wp.getAffectations().get(s3));
-		assertEquals(wp.getAffectations().get(s0),wp.getAffectations().get(s7));
-		
-		// s1, s4 et s6 doivent être de la même couleur :
-		assertEquals(wp.getAffectations().get(s1),wp.getAffectations().get(s4));
-		assertEquals(wp.getAffectations().get(s1),wp.getAffectations().get(s6));
-		
-		// s2, s8 et s5 doivent être de la même couleur :
-		assertEquals(wp.getAffectations().get(s2),wp.getAffectations().get(s8));
-		assertEquals(wp.getAffectations().get(s2),wp.getAffectations().get(s5));
+		// Pour chaque sommet on vérifie qu'il n'y a pas de voisin de même couleur que lui.
+		for (Sommet s : g.getSommets()) {
+			for (Sommet vs : s.getVoisins()) {
+				assertFalse(wp.getAffectations().get(s) == wp.getAffectations().get(vs));
+			}
+		}
 	}
 	
 }
