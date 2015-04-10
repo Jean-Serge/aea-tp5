@@ -1,5 +1,6 @@
 package algo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ public class WelshPowel {
 	 */
 	public WelshPowel(Graphe graphe) {
 		this.nb_couleur = 0;
-		this.liste_sommets = graphe.getSommets();
+		this.liste_sommets = new ArrayList<Sommet>(graphe.getSommets());
 				
 	}
 	
@@ -43,24 +44,26 @@ public class WelshPowel {
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
 		// On prend les sommets dans l'ordre décroissant.
-		for (Sommet s: this.liste_sommets) {
-			// Si une couleur n'est pas attribuée (numéro couleur = 0), on continue si on passe au suivant.
-			if (!this.affectation_couleur.containsKey(s)) {
-				this.nb_couleur++;
-				// On met la plus petite couleur
-				this.affectation_couleur.put(s, this.nb_couleur);
+		while (!this.liste_sommets.isEmpty()) {
+			Sommet s = this.liste_sommets.get(0);
+			this.nb_couleur++;
+			// On met la plus petite couleur
+			this.affectation_couleur.put(s, this.nb_couleur);
+			this.liste_sommets.remove(s);
 				
-				// On parcours les autres sommets pour attribuer la couleur ailleurs
-				for (Sommet s2 : this.liste_sommets) {
-					// On passe les sommets ayant déja été colorés
-					if (!this.affectation_couleur.containsKey(s2)) {
-						if (!this.aUnVoisinColoreAvec(s2,this.nb_couleur)) {
-							// On peut mettre la couleur si on ne trouve pas de voisin avec cette couleur.
-							this.affectation_couleur.put(s2, this.nb_couleur);
-						}
+			List<Sommet> copy = new ArrayList<Sommet>(this.liste_sommets);
+			// On parcours les autres sommets pour attribuer la couleur ailleurs
+			for (Sommet s2 : this.liste_sommets) {
+				// On passe les sommets ayant déja été colorés
+				if (!this.affectation_couleur.containsKey(s2)) {
+					if (!this.aUnVoisinColoreAvec(s2,this.nb_couleur)) {
+						// On peut mettre la couleur si on ne trouve pas de voisin avec cette couleur.
+						this.affectation_couleur.put(s2, this.nb_couleur);
+						copy.remove(s2);
 					}
 				}
 			}
+			this.liste_sommets = copy;
 		}
 		
 		return this.nb_couleur;
