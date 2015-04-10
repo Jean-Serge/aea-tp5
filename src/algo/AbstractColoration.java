@@ -16,7 +16,7 @@ public abstract class AbstractColoration {
 	
 	public AbstractColoration(AbstractGraphe g){
 		this.g = g;
-		this.nb_couleurs = 0;
+		this.nb_couleurs = 1;
 		this.liste_sommets = this.g.getSommets();
 		this.affectation_couleurs = new HashMap<Sommet, Integer>();
 	}

@@ -28,8 +28,6 @@ public class DSatur extends AbstractColoration {
 	 * @return le nombre de couleur utilisé durant l'algorithme
 	 */
 	public void execute() {
-		// Reinitialisation de la variable (en cas de réutilisation).
-		this.nb_couleurs = 1;
 		// on tri la liste des sommets
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
