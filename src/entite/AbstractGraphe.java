@@ -59,10 +59,10 @@ public abstract class AbstractGraphe {
 		retour += "Nombre d'arêtes : " + this.aretes.size() + "\n";
 		retour += "Nombre de sommets : " + this.sommets.size() + "\n";
 
-		retour += "\nListe des arêtes : \n";
+		//retour += "\nListe des arêtes : \n";
 
-		for (Arete a : this.aretes)
-			retour += a + "\n";
+		//for (Arete a : this.aretes)
+		//	retour += a + "\n";
 
 		return retour;
 	}

@@ -1,7 +1,9 @@
 package algo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import utils.DegreSommetComparator;
@@ -28,13 +30,12 @@ public class DSatur extends AbstractColoration {
 	 * @return le nombre de couleur utilisé durant l'algorithme
 	 */
 	public void execute() {
-		
+		List<Sommet> sommets = new ArrayList<Sommet>(this.liste_sommets);
 		// on tri la liste des sommets
-		Collections.sort(this.liste_sommets,new DegreSommetComparator());
+		Collections.sort(sommets,new DegreSommetComparator());
 		
 		// On colore le premier sommet avec 1 :
-		this.affectation_couleurs.put(this.liste_sommets.get(0), this.nb_couleurs);
-		this.liste_sommets.remove(0);
+		this.affectation_couleurs.put(sommets.remove(0), this.nb_couleurs);
 		
 		// Tant qu'on a pas coloré tout les sommets on execute la boucle
 		Sommet selectionne;
@@ -44,14 +45,14 @@ public class DSatur extends AbstractColoration {
 		int res;
 		
 		
-		while (this.liste_sommets.size() != 0) {
-			selectionne = this.liste_sommets.get(0);
-			dsat_max = this.DSAT(this.liste_sommets.get(0));
+		while (sommets.size() != 0) {
+			selectionne = sommets.get(0);
+			dsat_max = this.DSAT(sommets.get(0));
 			pas_colore = true;
 			res = 0;
 			
 			// Choisir un sommet avec DSAT max (si = on prend selon le degré)
-			for (Sommet s : this.liste_sommets) {
+			for (Sommet s : sommets) {
 				res = this.DSAT(s);
 				if (res > dsat_max) {
 					dsat_max = res;
@@ -65,7 +66,7 @@ public class DSatur extends AbstractColoration {
 				if (!this.aUnVoisinColoreAvec(selectionne, i)) {
 
 					this.affectation_couleurs.put(selectionne, i);
-					this.liste_sommets.remove(selectionne);
+					sommets.remove(selectionne);
 					pas_colore = false;
 				}
 				i++;
@@ -76,7 +77,7 @@ public class DSatur extends AbstractColoration {
 				
 				this.nb_couleurs++;
 				this.affectation_couleurs.put(selectionne, this.nb_couleurs);
-				this.liste_sommets.remove(selectionne);
+				sommets.remove(selectionne);
 			}
 			else {
 				pas_colore = true;
@@ -86,7 +87,7 @@ public class DSatur extends AbstractColoration {
 	
 	
 	/**
-	 * Retourne le nombre de voisins colorés.
+	 * Retourne le nombre de voisins colorés différemment.
 	 * @return dsat, soit le nombre de voisins colorés.
 	 */
 	public int DSAT(Sommet sommet) {
