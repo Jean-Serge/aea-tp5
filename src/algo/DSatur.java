@@ -28,9 +28,10 @@ public class DSatur extends AbstractColoration {
 	 * @return le nombre de couleur utilisé durant l'algorithme
 	 */
 	public void execute() {
+		
 		// on tri la liste des sommets
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
-
+		
 		// On colore le premier sommet avec 1 :
 		this.affectation_couleurs.put(this.liste_sommets.get(0), this.nb_couleurs);
 		this.liste_sommets.remove(0);
