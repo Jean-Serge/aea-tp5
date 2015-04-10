@@ -14,13 +14,14 @@ public class Naif extends AbstractColoration{
 	
 	public void execute(){
 		// Initialisation des variables
-		List<Integer> couleurChoisie;
-		int j = 0;
+		List<Integer> couleurChoisie = new LinkedList<Integer>();
+		int j;
 		int size = this.liste_sommets.size();
 
 		// On parcours tout les sommets du graphe
 		for(int i = 0 ; i < size ; i++){
-			couleurChoisie = new LinkedList<Integer>();
+			couleurChoisie.clear();
+			
 			// On cherche les couleurs de ses voisins 
 			for(Sommet s : this.liste_sommets.get(i).getVoisins()){
 				if(!affectation_couleurs.containsKey(s))
@@ -31,8 +32,11 @@ public class Naif extends AbstractColoration{
 				couleurChoisie.add(affectation_couleurs.get(s));
 			}
 			
+			j = 1;
 			// On attribue au sommet courant la plus petite couleur non trouvée chez ses voisins
-			while(couleurChoisie.contains(++j));
+			while(couleurChoisie.contains(j)){
+				++j;
+			}
 
 			affectation_couleurs.put(this.liste_sommets.get(i), j);
 		}

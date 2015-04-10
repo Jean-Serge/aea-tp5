@@ -18,7 +18,7 @@ public class Main {
 		AbstractColoration coloration;
 
 		deb = System.currentTimeMillis();
-		AbstractGraphe g = new GrapheAleatoire(5, (float) 0.3);
+		AbstractGraphe g = new GrapheAleatoire(10, (float) 0.3);
 		fin = System.currentTimeMillis() - deb;
 
 		System.out.println("La création du graphe a pris " + fin + " ms.");
