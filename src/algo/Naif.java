@@ -14,7 +14,7 @@ public class Naif extends AbstractColoration{
 	
 	public void execute(){
 		// Initialisation des variables
-		List<Integer> couleurChoisie; = new LinkedList<Integer>();
+		List<Integer> couleurChoisie;
 		int j = 0;
 		int size = this.liste_sommets.size();
 
