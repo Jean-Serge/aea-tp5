@@ -1,14 +1,11 @@
 package algo;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import utils.DegreSommetComparator;
-import entite.Graphe;
+import entite.AbstractGraphe;
 import entite.Sommet;
 
 /**
@@ -16,37 +13,28 @@ import entite.Sommet;
  * @author Thibaud VERBAERE
  *
  */
-public class DSatur {
+public class DSatur extends AbstractColoration {
 		
-	private int nb_couleur;
-	
-	private List<Sommet> liste_sommets;
-	
-	private HashMap<Sommet,Integer> affectation_couleur;
-
 	/**
 	 * Créé une nouvelle instance pour une colorisation par DSatur d'un graphe.
 	 * @param graphe le graphe à colorer.
 	 */
-	public DSatur(Graphe graphe) {
-		this.nb_couleur = 0;
-		this.liste_sommets = new ArrayList<Sommet>(graphe.getSommets());
-		this.affectation_couleur = new HashMap<Sommet,Integer>();
-		
+	public DSatur(AbstractGraphe g) {
+		super(g);
 	}
 	
 	/**
 	 * Execute l'algorithme de DSatur sur le graphe.
 	 * @return le nombre de couleur utilisé durant l'algorithme
 	 */
-	public int execute() {
+	public void execute() {
 		// Reinitialisation de la variable (en cas de réutilisation).
-		this.nb_couleur = 1;
+		this.nb_couleurs = 1;
 		// on tri la liste des sommets
 		Collections.sort(this.liste_sommets,new DegreSommetComparator());
 
 		// On colore le premier sommet avec 1 :
-		this.affectation_couleur.put(this.liste_sommets.get(0), this.nb_couleur);
+		this.affectation_couleurs.put(this.liste_sommets.get(0), this.nb_couleurs);
 		this.liste_sommets.remove(0);
 		
 		// Tant qu'on a pas coloré tout les sommets on execute la boucle
@@ -74,10 +62,10 @@ public class DSatur {
 
 			// On cherche la plus petite couleur possible pour le sommet selectionne
 			i = 1;
-			while (pas_colore && i <= this.nb_couleur) {
+			while (pas_colore && i <= this.nb_couleurs) {
 				if (!this.aUnVoisinColoreAvec(selectionne, i)) {
 
-					this.affectation_couleur.put(selectionne, i);
+					this.affectation_couleurs.put(selectionne, i);
 					this.liste_sommets.remove(selectionne);
 					pas_colore = false;
 				}
@@ -87,16 +75,14 @@ public class DSatur {
 			// On colore le sommet
 			if (pas_colore) {
 				
-				this.nb_couleur++;
-				this.affectation_couleur.put(selectionne, this.nb_couleur);
+				this.nb_couleurs++;
+				this.affectation_couleurs.put(selectionne, this.nb_couleurs);
 				this.liste_sommets.remove(selectionne);
 			}
 			else {
 				pas_colore = true;
 			}
 		}		
-		
-		return this.nb_couleur;
 	}
 	
 	
@@ -107,7 +93,7 @@ public class DSatur {
 	public int DSAT(Sommet sommet) {
 		Set<Integer> couleurs = new HashSet<Integer>();
 		for (Sommet s : sommet.getVoisins()) {
-			couleurs.add(this.affectation_couleur.get(s));
+			couleurs.add(this.affectation_couleurs.get(s));
 		}
 		
 		return couleurs.size();
@@ -121,19 +107,9 @@ public class DSatur {
 	public boolean aUnVoisinColoreAvec(Sommet sommet, int couleurCode) {
 		for (Sommet s : sommet.getVoisins()) {
 			// Des qu'on trouve la couleur on renvoie 'true'.
-			if (this.affectation_couleur.containsKey(s) && this.affectation_couleur.get(s) == couleurCode)
+			if (this.affectation_couleurs.containsKey(s) && this.affectation_couleurs.get(s) == couleurCode)
 				return true;
 		}
 		return false;
 	}
-	
-	
-	/**
-	 * Retourne les affectations de couleurs.
-	 * @return
-	 */
-	public HashMap<Sommet,Integer> getAffectations() {
-		return this.affectation_couleur;
-	}
-	
 }

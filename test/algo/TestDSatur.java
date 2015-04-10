@@ -1,79 +1,27 @@
 package algo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import algo.DSatur;
-import entite.Arete;
+import entite.AbstractGraphe;
 import entite.Graphe;
+import entite.GrapheAleatoire;
 import entite.Sommet;
 
 public class TestDSatur {
 	
-	DSatur ds;
-	Graphe g = new Graphe();
+	private AbstractGraphe g = new Graphe();
 	
-	Sommet s0 = new Sommet(0);
-	Sommet s1 = new Sommet(1);
-	Sommet s2 = new Sommet(2);
-	Sommet s3 = new Sommet(3);
-	Sommet s4 = new Sommet(4);
-	Sommet s5 = new Sommet(5);
-	Sommet s6 = new Sommet(6);
-	Sommet s7 = new Sommet(7);
-	Sommet s8 = new Sommet(8);
-	
-	Arete a1 = new Arete(s0,s1);
-	Arete a2 = new Arete(s0,s2);
-	Arete a3 = new Arete(s1,s2);
-	Arete a4 = new Arete(s2,s3);
-	Arete a5 = new Arete(s1,s8);
-	Arete a6 = new Arete(s3,s4);
-	Arete a7 = new Arete(s4,s5);
-	Arete a8 = new Arete(s4,s7);
-	Arete a9 = new Arete(s5,s7);
-	Arete a10 = new Arete(s5,s6);
-	Arete a11 = new Arete(s6,s8);
-	Arete a12 = new Arete(s7,s8);
-
 	@Before
 	public void setUp() {
-		
-		g.ajoutSommet(s0);
-		g.ajoutSommet(s1);
-		g.ajoutSommet(s2);
-		g.ajoutSommet(s3);
-		g.ajoutSommet(s4);
-		g.ajoutSommet(s5);
-		g.ajoutSommet(s6);
-		g.ajoutSommet(s7);
-		g.ajoutSommet(s8);
-		
-		g.ajoutArete(a1);
-		g.ajoutArete(a2);
-		g.ajoutArete(a3);
-		g.ajoutArete(a4);
-		g.ajoutArete(a5);
-		g.ajoutArete(a6);
-		g.ajoutArete(a7);
-		g.ajoutArete(a8);
-		g.ajoutArete(a9);
-		g.ajoutArete(a10);
-		g.ajoutArete(a11);
-		g.ajoutArete(a12);
-				
+		Random r = new Random();
+		g = new GrapheAleatoire((r.nextInt() % 1000) + 1, r.nextFloat());
 	}
-	
-	@Test
-	public void TestNbCouleurs() {
-		DSatur ds = new DSatur(g);
-		int nb_couleur = ds.execute();
-		// Normalement on a 3 couleurs pour ce graphe :
-		assertEquals("nombres de couleurs doit être 3",3,nb_couleur);
-	}
-	
+
 	@Test
 	public void TestColoration() {
 		DSatur ds = new DSatur(g);
@@ -81,7 +29,7 @@ public class TestDSatur {
 		// Pour chaque sommet on vérifie qu'il n'y a pas de voisin de même couleur que lui.
 		for (Sommet s : g.getSommets()) {
 			for (Sommet vs : s.getVoisins()) {
-				assertFalse(ds.getAffectations().get(s) == ds.getAffectations().get(vs));
+				assertFalse(ds.getColoration().get(s) == ds.getColoration().get(vs));
 			}
 		}
 	}
