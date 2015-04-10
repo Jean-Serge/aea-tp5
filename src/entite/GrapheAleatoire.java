@@ -13,7 +13,7 @@ import utils.MyRandom;
 public class GrapheAleatoire extends AbstractGraphe {
 
 	private int nSommets;
-	private int nAretes;
+	private float p;
 
 	// =========================================================================================
 	// Constructeurs
@@ -28,10 +28,10 @@ public class GrapheAleatoire extends AbstractGraphe {
 	 * @param nAretes
 	 *            le nombre d'arêtes du graphe.
 	 */
-	public GrapheAleatoire(int nSommets, int nAretes) {
+	public GrapheAleatoire(int nSommets, float p) {
 		super();
 		this.nSommets = nSommets;
-		this.nAretes = nAretes;
+		this.p = p;
 
 		this.generereGrapheAleatoire();
 	}
@@ -51,38 +51,20 @@ public class GrapheAleatoire extends AbstractGraphe {
 		}
 
 		MyRandom rand = new MyRandom();
-		int cptAretesCrees = 0;
-		Arete areteACreer = null;
-		int debut, fin, poids;
-		boolean egal;
+		Arete areteACreer;
+		int poids;
+		
+		// On cherche toutes les combinaisons de sommets possible
+		for (int i = 0 ; i < this.nSommets ; i++) {
+			for (int j = i+1 ; j < this.nSommets ; j++) {
+				if (rand.nextFloat() <= p) {
+					poids = (rand.nextPositive() % Arete.MAX_VALUE) + 1;
+					areteACreer = new Arete(this.getSommets().get(i), this.getSommets().get(j), poids);
 
-		while (cptAretesCrees < this.nAretes) {
-			debut = rand.nextPositive() % this.nSommets;
-			fin = rand.nextPositive() % this.nSommets;
-			poids = rand.nextPositive() % Arete.MAX_VALUE ;
-			// Pas d'arête d'un sommet vers lui-même
-			if (debut == fin)
-				continue;
-
-			areteACreer = new Arete(this.sommets.get(debut),
-					this.sommets.get(fin), poids);
-			// On vérifie que l'arête en question n'existe pas déjà
-			egal = false;
-			for (Arete a : this.aretes) {
-				if (areteACreer.equals(a)){
-					egal = true;
-					break;
+					this.aretes.add(areteACreer);
 				}
 			}
-
-			if (egal)
-				continue;
-
-			// Si tout se passe bien on ajoute cet Arête
-			this.aretes.add(areteACreer);
-			cptAretesCrees++;
 		}
-
 	}
 
 }
