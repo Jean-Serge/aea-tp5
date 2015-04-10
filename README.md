@@ -3,12 +3,29 @@
 ## Jean-Serge MONBAILLY
 ## Thibaud VERBAERE
 
+Performances
+============
+Plus un algorithme est efficace (nombre de couleurs minimal) et plus cet algorithme est lent.
+À l'inverse, plus celui-ci est rapide et moins ses résultats sont optimaux.
 
+Ainsi l'algorithme naïf est rapide mais donnera assez rapidement de mauvais résultat (un nombre de couleurs
+éloigné de l'optimale) ; et l'algorithme DSAT est le plus lent mais le plus efficace. L'algorithme de Welsh-Powel
+est quand à lui un bon compromis, il offre un temps de calcul très proche de celui de l'algorithme naïf tout en 
+gardant une précision semblable à celle de DSAT.
+
+On constate assez vite les différences (à partir d'environ 50 sommets).
+
+(des valeurs numériques sont disponible en commentaire de la classe Main du projet)
 
 
 Algorithmes implémentés
 =======================
 
+naïf:
+-----
+L'algorithme naïf parcours les sommets du graphe (sans ordre préçis).
+Pour chacun d'eux il établit la liste des couleurs de ses voisins et donne au sommet courant la plus petite
+couleur possible non attribuée à l'un d'eux.
 
 Welsh-Powel:
 ------------
